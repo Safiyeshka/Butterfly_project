@@ -1,7 +1,14 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1:27017/test');
 
-const Butterfly = mongoose.model('Butterfly', { name: String });
+var schema = mongoose.Schema({ name: String })
+schema.methods.kind = function(){
+    console.log(this.get("name") + " Oto")
+    }
+    
+const Butterfly = mongoose.model('Butterfly', schema);
 
-const kitty = new Butterfly({ name: 'Greta' });
-kitty.save().then(() => console.log('бабочка'));
+const butterfly = new Butterfly({ name: 'Greta' });
+butterfly.save().then(() => {
+    butterfly.kind()
+});
