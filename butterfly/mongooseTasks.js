@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/test');
+mongoose.connect('mongodb://localhost/test1')
+var Butterfly = require("./models/butterfly").Butterfly
 
 var schema = mongoose.Schema({ name: String })
-schema.methods.kind = function(){
-    console.log(this.get("name") + " Oto")
-    }
-    
-const Butterfly = mongoose.model('Butterfly', schema);
 
-const butterfly = new Butterfly({ name: 'Greta' });
+const butterfly = new Butterfly({ 
+    title: "Cethosia Cyane",
+    nick: "cethosia_cyane"
+});
+
 butterfly.save().then(() => {
-    butterfly.kind()
+    console.log(arguments)
 });
