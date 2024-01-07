@@ -3,10 +3,10 @@ var router = express.Router();
 var Butterfly = require("../models/butterfly").Butterfly
 
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('Новый маршрутизатор, для маршрутов, начинающихся с butterflies');
-});
+// /* GET users listing. */
+// router.get('/', function(req, res, next) {
+//   res.send('Новый маршрутизатор, для маршрутов, начинающихся с butterflies');
+// });
 
 /* Страница бабочек */
 router.get("/:nick", async (req, res, next) => {
