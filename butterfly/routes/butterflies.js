@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var Butterfly = require("../models/butterfly").Butterfly;
+const express = require('express');
+const router = express.Router();
+const Butterfly = require("../models/butterfly").Butterfly;
 var async = require("async");
 
 // /* GET users listing. */
@@ -33,7 +33,6 @@ router.get('/:nick', async function(req, res, next) {
       title: title,
       picture: picture,
       desc: desc,
-    //   menu: butterflies
     });
   }
   

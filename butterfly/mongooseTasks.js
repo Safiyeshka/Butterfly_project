@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/test1')
 var Butterfly = require("./models/butterfly").Butterfly
 
