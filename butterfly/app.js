@@ -4,14 +4,16 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var mongoose = require('mongoose')
+mongoose.connect('mongodb://localhost/butterfly')
+
+var session = require("express-session")
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var butterflies = require('./routes/butterflies');
 
 var app = express();
-
-var mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/butterfly')
 
 // view engine setup
 
@@ -24,6 +26,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+  secret: "Butterfly", 
+  cookie:{maxAge:60*1000},
+  resave: true, 
+  saveUninitialized: true,
+}))
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -42,7 +52,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error', {title: "eror"});
 });
 
 module.exports = app;
