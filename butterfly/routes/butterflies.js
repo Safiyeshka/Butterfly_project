@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Butterfly = require("../models/butterfly").Butterfly;
 var async = require("async");
+var checkAuth = require("./../middleware/checkAuth.js")
 
 // /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -9,7 +10,7 @@ var async = require("async");
 // });
 
 /* Страница бабочек */
-router.get('/:nick', async function(req, res, next) {
+router.get('/:nick', checkAuth, async function(req, res, next) {
     try {
       const [butterfly, butterflies] = await Promise.all([
         Butterfly.findOne({ nick: req.params.nick }),
