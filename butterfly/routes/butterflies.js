@@ -3,9 +3,9 @@ const router = express.Router();
 // const Butterfly = require("../models/butterfly").Butterfly;
 var async = require("async");
 var db = require('../mySQLConnect.js');
-// var checkAuth = require("./../middleware/checkAuth.js")
+var checkAuth = require("./../middleware/checkAuth.js")
 
-router.get("/:nick", function(req, res, next) {
+router.get("/:nick", checkAuth, function(req, res, next) {
   db.query(`SELECT * FROM butterflies WHERE butterflies.nick = '${req.params.nick}'`, (err, butterflies) => {
   if(err) {
     console.log(err);
