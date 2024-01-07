@@ -9,6 +9,8 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+var mongoose = require('mongoose')
+mongoose.connect('mongodb://localhost/butterfly')
 
 // view engine setup
 
