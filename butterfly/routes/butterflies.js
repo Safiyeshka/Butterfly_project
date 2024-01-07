@@ -17,7 +17,7 @@ router.get('/:nick', async function(req, res, next) {
       ]);
     
       if (!butterfly) {
-        throw new Error("Нет такой бабочки");
+        throw new Error("Page not found");
       }
       
       renderButterfly(res, butterfly.title, butterfly.avatar, butterfly.desc, butterflies);

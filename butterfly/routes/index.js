@@ -2,6 +2,12 @@ var express = require('express');
 var router = express.Router();
 const Butterfly = require("../models/butterfly").Butterfly
 
+/* GET login/registration page. */
+router.get('/logreg', function(req, res, next) {
+  res.render('logreg',{title: 'Log In'});
+});
+
+
 /* GET home page. */
 router.get('/', async (req, res, next) => {
   try {
