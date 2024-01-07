@@ -8,7 +8,7 @@ var data = [{
         title: 'Greta Oto',
         nick: 'greta_oto',
         avatar: '/images/go.png',
-        desc: 'Gre Oto butterflies with transparent wings live in countries such as Ecuador, Panama and Venezuela'
+        desc: 'Gre Oto butterflies with transparent wings live in countries such as Ecuador, Panama and Venezuela.'
     },
     {
         title: 'Papilio Memnon',
