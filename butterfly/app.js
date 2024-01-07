@@ -33,16 +33,16 @@ app.use(session({
   cookie:{maxAge:600*1000},
   resave: true,
   saveUninitialized: true,
-  secure: true,
+  // secure: true,
   store: MongoStore.create({mongoUrl: 'mongodb://localhost/butterfly'})
-  }))
+  }));
 app.use(function(req,res,next){
     req.session.counter = req.session.counter +1 || 1
     next()
     })
 
 
-    app.use(require("./middleware/createMenu.js"))
+app.use(require("./middleware/createMenu.js"))
 
 
 app.use('/', indexRouter);
