@@ -27,12 +27,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var MongoStore = require('connect-mongo');
 app.use(session({
-  secret: "Butterfly", 
-  cookie:{maxAge:60*1000},
-  resave: true, 
+  secret: "butterfly",
+  cookie:{maxAge:600*1000},
+  resave: true,
   saveUninitialized: true,
-}))
+  secure: true,
+  store: MongoStore.create({mongoUrl: 'mongodb://localhost/butterfly'})
+  }))
 
 
 app.use('/', indexRouter);
