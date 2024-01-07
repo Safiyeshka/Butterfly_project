@@ -6,7 +6,7 @@ const Butterfly = require("../models/butterfly").Butterfly
 router.get('/', async (req, res, next) => {
   try {
     const menu = await Butterfly.find({}, { _id: 0, title: 1, nick: 1 });
-    res.render('index', {
+    res.cookie('greeting', 'Hi!!!').render('index', {
       title: 'Butterfly',
       menu: menu
     });
