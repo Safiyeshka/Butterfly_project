@@ -1,12 +1,14 @@
 var express = require('express');
 var router = express.Router();
+var db = require('../mySQLConnect.js')
 
-const Butterfly = require("../models/butterfly").Butterfly
-const User = require("../models/user").User;
+// const Butterfly = require("../models/butterfly").Butterfly
+// const User = require("../models/user").User;
 
 /* GET home page. */
 router.get('/', async (req, res, next) => {
   try {
+    req.session.greeting = "Hi!!!"
     res.render('index', { title: 'Butterfly', counter:req.session.counter });
   } 
   catch (err) {next(err);}
@@ -14,37 +16,66 @@ router.get('/', async (req, res, next) => {
    
 /* GET login/registration page. */
 router.get('/logreg', async function(req, res, next) {
-  res.render('logreg', { title: 'Вход',error:null}); 
+  res.render('logreg', { title: 'Log In',error:null}); 
 });
 
 /* POST login/registration page. */
 router.post('/logreg', async function(req, res, next) {
-  const username = req.body.username;
-  const password = req.body.password;
-  try {
-      const user = await User.findOne({ username });
+  var username = req.body.username;
+  var password = req.body.password;
 
-      if (user) {
-          if (user.checkPassword(password)) {
-              req.session.user = user._id;
-              res.redirect('/');
-          } else {
-              res.render('logreg', { title: 'Log In', error: 'Неверный пароль' });
-          }
+  db.query(`SELECT * FROM user WHERE user.username = '${req.body.username}'`, function(err, users) {
+    if (err) return next(err);
+
+    if (users.length > 0) {
+      var user = users[0];
+
+      if (password == user.password) {
+        req.session.user = user.id;
+        res.redirect('/');
       } else {
-          const newUser = new User({ username, password });
-          await newUser.save();
-          req.session.user = newUser._id;
-          res.redirect('/');
+        // Неправильный пароль
+        res.render('logreg', { title: 'Log In', error: 'Неправильный пароль' });
       }
-  } catch (err) {
-      next(err);
-  }
+    } else {
+      db.query(`INSERT INTO user (username, password) VALUES ('${username}', '${password}')`, function(err, user) {
+        if (err) return next(err);
+
+        req.session.user = user.id;
+        res.redirect('/');
+      });
+    }
+  });
 });
 
-router.get('/logreg', function(req, res, next) {
-  res.render('logreg',{error:null});
-  });
+
+
+
+
+//   try {
+//       const user = await User.findOne({ username });
+
+//       if (user) {
+//           if (user.checkPassword(password)) {
+//               req.session.user = user._id;
+//               res.redirect('/');
+//           } else {
+//               res.render('logreg', { title: 'Log In', error: 'Неверный пароль' });
+//           }
+//       } else {
+//           const newUser = new User({ username, password });
+//           await newUser.save();
+//           req.session.user = newUser._id;
+//           res.redirect('/');
+//       }
+//   } catch (err) {
+//       next(err);
+//   }
+// });
+
+// router.get('/logreg', function(req, res, next) {
+//   res.render('logreg',{error:null});
+//   });
 
 /* POST logout. */
   router.post('/logout', function(req, res, next) {
