@@ -16,11 +16,11 @@
             </li>
 
             
-            <% menu.forEach(butterflies => { %>
+            <% if(typeof nav == 'object' && nav){ nav.forEach(function(butterflies){%>
                 <li class="nav-item">
                   <a class="nav-link" href="/butterflies/<%= butterflies.nick %>"><%= butterflies.title %></a>
                 </li>
-            <% }) %>
+            <% })} %>
             
             <!-- <li class="nav-item">
                 <a class="nav-link" href="/butterflies/cethosia_cyane">Cethosia Cyane</a>
@@ -32,7 +32,7 @@
                 <a class="nav-link" href="/butterflies/papilio_memnon">Papilio Memnon</a>
             </li> -->
         </ul>
-        
+
         <ul class="navbar-nav navbar-right">
             <li>
             <a class="nav-link" href="">Log In</a>

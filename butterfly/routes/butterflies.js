@@ -17,7 +17,7 @@ router.get('/:nick', async function(req, res, next) {
       ]);
     
       if (!butterfly) {
-        throw new Error("Нет такоЙ бабочки");
+        throw new Error("Нет такой бабочки");
       }
       
       renderButterfly(res, butterfly.title, butterfly.avatar, butterfly.desc, butterflies);
@@ -33,10 +33,9 @@ router.get('/:nick', async function(req, res, next) {
       title: title,
       picture: picture,
       desc: desc,
-      menu: butterflies
+    //   menu: butterflies
     });
   }
-  
   
   
   module.exports = router;
